@@ -2,10 +2,13 @@ require('./config')
 const express = require('express');
 const app = express();
 const httpContext = require('express-http-context');
+const bodyParser = require('body-parser');
 const router = require('./src/routes/routes')
 const addRequestId = require('./src/middlewares/requestId')
 const connectDB = require('./src/database/mongoDB')
 const port = process.env.PORT || 3003;
+
+app.use(bodyParser.json());
 
 app.use(httpContext.middleware);
 // Middleware to attach UUID to each request
