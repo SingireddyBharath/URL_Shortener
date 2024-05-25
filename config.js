@@ -1,4 +1,14 @@
-const dotenv = require('dotenv')
-const environment = process.env.NODE_ENV || 'local';
-console.log("Running in " + environment)
-dotenv.config({ path: `./src/environments/.env.${environment.trim()}` });
+const dotenv = require('dotenv');
+
+// The default NODE_ENV value is 'local'
+let nodeEnv = process.env.NODE_ENV || 'local';
+
+// Load configuration from the correct .env file
+dotenv.config({ path: `./src/environments/.env.${nodeEnv}` });
+
+// If NODE_ENV has been mistakenly overwritten by dotenv, reset it
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = nodeEnv;
+}
+
+console.log("Running in " + process.env.NODE_ENV);

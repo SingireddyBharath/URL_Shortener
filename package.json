@@ -19,10 +19,16 @@
   "bugs": {
     "url": "https://github.com/SingireddyBharath/URL_Shortener/issues"
   },
-  "homepage": "https://github.com/SingireddyBharath/URL_Shortener#readme",
+  "homepage": ".",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "express-http-context": "^1.2.4",
+    "nodemon": "^3.1.0",
+    "uuid": "^9.0.1",
+    "winston": "^3.13.0"
+  },
+  "imports": {
+    "#logger": "./src/logger/logger.js"
   }
 }
