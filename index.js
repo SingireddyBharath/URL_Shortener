@@ -15,7 +15,7 @@ app.use(httpContext.middleware);
 app.use(addRequestId);
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    __logger.info("Health check endpoint")
+    __logger.info("Health check")
     res.status(200).send("OK");
 });
 // Use your router for other endpoints
