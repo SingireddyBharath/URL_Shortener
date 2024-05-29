@@ -126,7 +126,7 @@ const getCacheRatio = async (req, res) => {
         }
 
         __logger.info(`CACHE_RATIO_RETRIEVED: Successfully retrieved cache ratio - ${JSON.stringify(cacheRatio)}`);
-        res.json({ cacheRatio });
+        res.json(cacheRatio);
     } catch (error) {
         __logger.error(`ERROR: ${error.message}`);
         res.status(500).json({ "status": "error", message: error.message });
