@@ -7,7 +7,10 @@ const swaggerDocs = require('./src/docs/swagger');
 const router = require('./src/routes/routes')
 const addRequestId = require('./src/middlewares/requestId')
 const connectDB = require('./src/database/mongoDB')
+const rateLimiter = require('./src/middlewares/rateLimiter')
 const port = process.env.PORT || 3002;
+
+app.use(rateLimiter);
 
 app.use(bodyParser.json());
 
