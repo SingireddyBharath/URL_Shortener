@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 let nodeEnv = process.env.NODE_ENV || 'local';
 
 // Load configuration from the correct .env file
-dotenv.config({ path: `./src/environments/.env.${nodeEnv}` });
+dotenv.config({ path: `./src/environments/.env.${nodeEnv.trim()}` });
 
 // If NODE_ENV has been mistakenly overwritten by dotenv, reset it
 if (!process.env.NODE_ENV) {
