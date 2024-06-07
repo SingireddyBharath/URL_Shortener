@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const swaggerDocs = require('./src/docs/swagger');
 const router = require('./src/routes/routes')
 const addRequestId = require('./src/middlewares/requestId')
-const connectDB = require('./src/database/mongoDB')
 const rateLimiter = require('./src/middlewares/rateLimiter')
 const port = process.env.PORT || 3002;
 
@@ -26,9 +25,9 @@ app.get('/api/health', (req, res) => {
 });
 // Use your router for other endpoints
 app.use('/api/v1', router);
-//  connecting to database
-connectDB()
-app.listen(port, () => {
+app.listen(port, async () => {
     console.log(`Server is running on port ${port}`)
 });
+
+module.exports = app;
 app.disable('x-powered-by');

@@ -3,7 +3,7 @@ const httpContext = require('express-http-context');
 
 // prepare array for setting transports conditionally
 let _transports = []
-if (process.env.NODE_ENV == 'local') {
+if (process.env.NODE_ENV !== 'any') {
     // In local environment, log to console
     _transports.push(
         new transports.Console({

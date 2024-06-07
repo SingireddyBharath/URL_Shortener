@@ -6,7 +6,24 @@ module.exports = function addRequestId(req, res, next) {
     const requestId = uuidv4();
     req.id = requestId;
     httpContext.set('reqId', requestId);
-    __logger.info(`added requestId: ${req.id}`);
+
+    let requestData = JSON.stringify(req.body);
+    if (requestData.length > 1000) // limit size for big payloads
+        requestData = `${requestData.slice(0, 1000)}...`;
+
+    // Log when request starts
+    __logger.info(`Request ${requestId} started: ${req.method} ${req.path}`, {
+        method: req.method,
+        url: req.originalUrl,
+        data: requestData,
+        headers: req.headers
+    });
+
+    // Hook into response completion event
+    res.on('finish', () => {
+        // Log when request finishes
+        __logger.info(`Request ${requestId} finished: ${res.statusCode}`);
+    });
+
     next();
 };
-    
