@@ -90,6 +90,6 @@ router.delete('/shortenUrl', handler.deleteShortenUrl)
  *       200:
  *         description: Get Cache Ratio
  */
-router.get('/debug/cacheRatio', handler.getCacheRatio)
+router.get('/cacheRatio', handler.getCacheRatio)
 
 module.exports = router;
