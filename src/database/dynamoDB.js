@@ -182,7 +182,6 @@ const updateItem = async (id, itemObject) => {
     }
 };
 
-
 const deleteSingleItemById = async (id) => {
     try {
         const params = {

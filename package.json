@@ -2,13 +2,13 @@
   "name": "url_shortener",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "cross-env NODE_ENV=local nodemon index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon index.js",
-    "qa": "cross-env NODE_ENV=qa nodemon index.js",
-    "prod": "cross-env NODE_ENV=prod nodemon index.js"
+    "local": "cross-env NODE_ENV=local nodemon app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon app.js",
+    "qa": "cross-env NODE_ENV=qa nodemon app.js",
+    "prod": "cross-env NODE_ENV=prod nodemon app.js"
   },
   "repository": {
     "type": "git",

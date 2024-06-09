@@ -29,7 +29,7 @@ const getShortenUrl = async (req, res) => {
         __logger.info(`URL_EXIST: URL was already shortened - ${JSON.stringify(url)}`);
     }
 
-    const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+    const fullUrl = `${req.protocol}://${req.get('host')}/dev/shortenUrl`;
     return res.json({ "status": "ok", "shortUrl": `${fullUrl}/${url.shortId}` });
 };
 

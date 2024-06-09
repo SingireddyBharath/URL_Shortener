@@ -4,24 +4,6 @@ const handler = require('../controllers/handler')
 
 /**
  * @swagger
- * /api/v1/shortenUrl/{id}:
- *   get:
- *     summary: Redirect to long URL
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The shortened URL ID
- *         schema:
- *           type: string
- *     responses:
- *       302:
- *         description: Redirects to the long URL
- */
-router.get('/shortenUrl/:id', handler.redirectToLongUrl);
-
-/**
- * @swagger
  * /api/v1/shortenUrl:
  *   post:
  *     summary: Shorten a long URL

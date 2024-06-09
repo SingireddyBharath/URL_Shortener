@@ -12,13 +12,8 @@ module.exports = function addRequestId(req, res, next) {
         requestData = `${requestData.slice(0, 1000)}...`;
 
     // Log when request starts
-    __logger.info(`Request ${requestId} started: ${req.method} ${req.path}`, {
-        method: req.method,
-        url: req.originalUrl,
-        data: requestData,
-        headers: req.headers
-    });
-
+    __logger.info(`Request ${requestId} started: ${req.method} ${req.path}`);
+    __logger.info(`Request body : ${requestData}`);
     // Hook into response completion event
     res.on('finish', () => {
         // Log when request finishes
