@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy to AWS Lambda
         run: |
-          aws lambda update-function-code --function-name URL_Shortener_Dev --zip-file fileb://publish.zip --region your-region-replace
+          aws lambda update-function-code --function-name URL_Shortener_Dev --zip-file fileb://publish.zip --region ${{ secrets.AWS_DEFAULT_REGION }}
