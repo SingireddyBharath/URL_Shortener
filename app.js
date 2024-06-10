@@ -20,7 +20,7 @@ app.use(addRequestId);
 // For Swagger docs
 swaggerDocs(app);
 // Health check endpoint
-app.get('/dev/shortenUrl/:id', redirectToLongUrl)
+app.get('/shortenUrl/:id', redirectToLongUrl)
 
 app.get('/api/health', (req, res) => {
     __logger.info("Health check")
