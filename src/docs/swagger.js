@@ -1,6 +1,13 @@
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const route = require('../routes/routes')
+
+let hostUrl = 'http://localhost:3002/';
+
+if (process.env.NODE_ENV == 'dev') {
+  hostUrl = 'https://08pl881s30.execute-api.us-east-1.amazonaws.com/dev/';
+}
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -11,8 +18,8 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3002/',
-      },
+        url: hostUrl
+      }
     ],
   },
   apis: ['./src/routes/*.js'], // Path to the routes files

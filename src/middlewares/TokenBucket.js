@@ -25,7 +25,6 @@ class TokenBucket {
         if (count > this.tokens) {
             return false; // Cannot consume more tokens than available
         } else {
-            console.log("total tocken length: " + this.tokens)
             this.tokens -= count;
             return true; // Tokens successfully consumed
         }

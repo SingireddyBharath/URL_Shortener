@@ -1,15 +1,22 @@
 const createRedisClient = require('../database/redisClient');
 const __logger = require('#logger');
 let redisUtils = {};
-let client;
+let client = null;
 
 async function getRedisClient() {
     if (!client) {
         try {
-            client = await createRedisClient();
-            await client.connect();
+            try {
+                client = await createRedisClient();
+            } catch (errorConnection) {
+                __logger.error(`REDIS_CONNECTION_ERROR: Failed to connect to Redis. Error: ${errorConnection.message || errorConnection}`);
+                client = null;
+                throw errorConnection;
+            }
+            __logger.info('Redis client created successfully!.');
         } catch (error) {
-            __logger.error(`REDIS_CONNECTION_ERROR: Failed to connect to Redis. Error: ${error.message}`);
+            client = null;
+            __logger.error(`REDIS_CREATION_ERROR: Failed to create Redis client. Error: ${error.message || error}`);
             throw error;
         }
     } else {
