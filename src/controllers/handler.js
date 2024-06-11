@@ -1,14 +1,18 @@
+const crypto = require('crypto');
+const BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const bx = require('base-x');
 const __logger = require("#logger");
 const redisUtils = require('#redisUtils');
-const { getSingleItemById, deleteSingleItemById, insertItem, getSingleItemByGSIId } = require('../database/dynamoDB')
+const { getSingleItemById, deleteSingleItemById, insertItem } = require('../database/dynamoDB')
 
 const getShortenUrl = async (req, res) => {
     const longUrl = req.body.longUrl;
-    let url;
+    let url, shortId;
 
     try {
+        shortId = generateShortId(longUrl)
         // Find whether longUrl is already present
-        url = await getSingleItemByGSIId({ longUrl });
+        url = await getSingleItemById({ shortId: shortId });
     } catch (error) {
         __logger.error(`Error fetching from database: ${error.message}`);
         return res.status(500).json({ "status": "error", message: 'Internal Server Error.' });
@@ -17,7 +21,6 @@ const getShortenUrl = async (req, res) => {
     if (!url) {
         try {
             // generate short id if longUrl not exists in db
-            const shortId = generateShortId();
             url = { shortId, longUrl };
             await insertItem(url);
             __logger.info(`URL_SHORTENED: Successfully - ${JSON.stringify(url)}`);
@@ -170,14 +173,16 @@ const getCacheRatio = async (req, res) => {
     return res.json(cacheRatio);
 };
 
-function generateShortId() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    let result = '';
-    for (let i = 0; i < 5; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+function generateShortId(url) {
+    const hash = crypto.createHash('md5').update(url).digest('hex');
+
+    // Encode the whole hash
+    const encodedHash = bx(BASE62).encode(Buffer.from(hash));
+
+    // If the length is more than 7, cut it down to 7
+    const shortId = encodedHash.length > 7 ? encodedHash.substring(0, 7) : encodedHash;
+
+    return shortId;
 }
 
 module.exports = {
